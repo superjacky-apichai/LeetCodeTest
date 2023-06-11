@@ -52,32 +52,36 @@ namespace Array
 
 
         public int RemoveDuplicates(int[] nums)
-{
+        {
             List<int> numList = new List<int>();
-            int cur = nums[0]; 
-        numList.Add(nums[0]);
-            for (int i = 1; i< nums.Length;i++){
-                
-                  if(cur != nums[i]){
+            int cur = nums[0];
+            numList.Add(nums[0]);
+            for (int i = 1; i < nums.Length; i++)
+            {
+
+                if (cur != nums[i])
+                {
                     Console.WriteLine(nums[i]);
-                      numList.Add(nums[i]);
-                      cur = nums[i];
-                  }
+                    numList.Add(nums[i]);
+                    cur = nums[i];
+                }
             }
 
-             for (int i = 1; i< numList.Count;i++){
+            for (int i = 1; i < numList.Count; i++)
+            {
 
-                  nums[i]=numList.ElementAt(i);
-                      
+                nums[i] = numList.ElementAt(i);
+
             }
-            
 
-           
+
+
 
             return numList.Count;
 
+        }
 
-    }
+        
 
 
     }
