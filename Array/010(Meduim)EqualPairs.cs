@@ -54,7 +54,7 @@ namespace Array
                 {
                     for (int k = 0; k < grid.Length; k++)
                     {
-
+                        j = 0;
                         for (int l = 0; l < grid.Length; l++)
                         {
 
@@ -72,16 +72,11 @@ namespace Array
                         if (eaqualCheck)
                         {
                             count++;
-                            break;
+
                         }
 
                     }
-                    if (!eaqualCheck)
-                    {
-
-                        break;
-                    }
-
+                    break;
                 }
             }
             return count;
