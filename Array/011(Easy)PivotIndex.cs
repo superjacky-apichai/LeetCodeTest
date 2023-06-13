@@ -47,49 +47,6 @@ Constraints:
     {
         public int PivotIndex(int[] nums)
         {
-            if (nums.Length < 3)
-            {
-                return -1;
-            }
-            else if (nums.Length == 3 && nums[0] == nums[2])
-            {
-                return 1;
-            }
-            int sumLeft = nums[0];
-            int sumRight = nums[nums.Length - 1] + nums[nums.Length - 2];
-            int indexLeft = 1;
-            int indexRight = nums.Length - 3;
-            while (true)
-            {
-
-
-                if (indexLeft >= indexRight && sumRight == 0)
-                {
-                    return 0;
-                }
-                else if (indexLeft == indexRight)
-                {
-                    return -1;
-                }
-
-
-                if (sumLeft == sumRight)
-                {
-                    return indexLeft;
-                }
-                else if (sumLeft > sumRight && indexLeft >= indexRight - nums.Length - 1)
-                {
-                    sumRight += nums[indexRight];
-                    indexRight++;
-                }
-                else if (sumRight > sumLeft && indexLeft <= indexRight - nums.Length - 1)
-                {
-                    sumLeft += nums[indexLeft];
-                    indexLeft++;
-                }
-            }
-
-            return -1;
         }
     }
 }
