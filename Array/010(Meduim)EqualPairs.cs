@@ -42,6 +42,50 @@ namespace Array
 {
     public class EqualPairs
     {
-        
+        public int EqualPairs(int[][] grid)
+        {
+            int count = 0;
+            bool eaqualCheck;
+
+            for (int i = 0; i < grid.Length; i++)
+            {
+                eaqualCheck = false;
+                for (int j = 0; j < grid.Length; j++)
+                {
+                    for (int k = 0; k < grid.Length; k++)
+                    {
+
+                        for (int l = 0; l < grid.Length; l++)
+                        {
+
+                            if (grid[l][k] == grid[i][j])
+                            {
+                                j++;
+                                eaqualCheck = true;
+                            }
+                            else
+                            {
+                                eaqualCheck = false;
+                                break;
+                            }
+                        }
+                        if (eaqualCheck)
+                        {
+                            count++;
+                            break;
+                        }
+
+                    }
+                    if (!eaqualCheck)
+                    {
+
+                        break;
+                    }
+
+                }
+            }
+            return count;
+        }
+
     }
 }
