@@ -47,76 +47,19 @@ Constraints:
     {
         public int PivotIndex(int[] nums)
         {
-            if (nums.Length == 0)
-            {
-                return -1;
-            }
-            else if (nums.Length == 1)
-            {
-                return 0;
-            }
-            else if (nums.Length == 2 && nums[1] == 0)
-            {
-                return 0;
-            }
-            else if (nums.Length == 2)
-            {
-                return -1;
-            }
-            // else if (nums.Length == 3 && nums[nums.Length - 1] + nums[1] == 0)
-            // {
-            //     return 0;
-            // }
-            // else if (nums.Length == 3 && (nums[0] + nums[1] == 0))
-            // {
-            //     return 2;
-            // }
-            // else if (nums.Length == 3 && nums[nums.Length - 1] == nums[0])
-            // {
-            //     return 1;
-            // }
-
-            int[] sumleft = new int[nums.Length];
-            int[] sumRight = new int[nums.Length];
-
-            for (int i = 1; i < nums.Length; i++)
-            {
-                sumleft[i] += nums[i - 1] + sumleft[i - 1];
-                sumRight[i] += nums[(nums.Length - 1) - (i - 1)] + sumRight[i - 1];
-                Console.Write("sumleft= " + sumleft[i] + " ");
-                Console.Write("sumright= " + sumRight[i] + " ");
-                Console.WriteLine();
-            }
+            int sum = 0; int leftSum = 0;
+            foreach (int x in nums) { sum += x; }
             for (int i = 0; i < nums.Length; i++)
             {
-                if (sumleft[i]=sumRight[i-2]){
-                    return i-1;
+               if(leftSum == sum-leftSum-nums[i]){
+                return i;
+               }       
+                 leftSum += nums[i];
 
-                }else if (sumRight[i]){
-                    
-                }
             }
 
-            // while (indexPivot != indexRight)
-            // {
-            //     if (sumLeft < sumRight)
-            //     {
-            //         indexPivot++;
-            //         sumLeft += nums[indexPivot - 1];
-            //     }
-            //     else if (sumRight <= sumLeft)
-            //     {
-            //         sumRight += nums[indexRight];
-            //         indexRight--;
-            //     }
-            // }
 
-            // if (sumLeft == sumRight)
-            // {
-            //     return indexPivot;
-            // }
-
-            return -1;
+          return -1;
         }
 
 
