@@ -76,30 +76,45 @@ Constraints:
             //     return 1;
             // }
 
+            int[] sumleft = new int[nums.Length];
+            int[] sumRight = new int[nums.Length];
 
-            int sumLeft = 0;
-            int sumRight = 0;
-            int indexRight = nums.Length - 1;
-            int indexPivot = 0;
-
-            while (indexPivot != indexRight)
+            for (int i = 1; i < nums.Length; i++)
             {
-                if (sumLeft < sumRight)
-                {
-                    indexPivot++;
-                    sumLeft += nums[indexPivot - 1];
-                }
-                else if (sumRight <= sumLeft )
-                {
-                    sumRight += nums[indexRight];
-                    indexRight--;
+                sumleft[i] += nums[i - 1] + sumleft[i - 1];
+                sumRight[i] += nums[(nums.Length - 1) - (i - 1)] + sumRight[i - 1];
+                Console.Write("sumleft= " + sumleft[i] + " ");
+                Console.Write("sumright= " + sumRight[i] + " ");
+                Console.WriteLine();
+            }
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (sumleft[i]=sumRight[i-2]){
+                    return i-1;
+
+                }else if (sumRight[i]){
+                    
                 }
             }
 
-            if (sumLeft == sumRight)
-            {
-                return indexPivot;
-            }
+            // while (indexPivot != indexRight)
+            // {
+            //     if (sumLeft < sumRight)
+            //     {
+            //         indexPivot++;
+            //         sumLeft += nums[indexPivot - 1];
+            //     }
+            //     else if (sumRight <= sumLeft)
+            //     {
+            //         sumRight += nums[indexRight];
+            //         indexRight--;
+            //     }
+            // }
+
+            // if (sumLeft == sumRight)
+            // {
+            //     return indexPivot;
+            // }
 
             return -1;
         }
