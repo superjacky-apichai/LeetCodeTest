@@ -47,6 +47,64 @@ Constraints:
     {
         public int PivotIndex(int[] nums)
         {
+            if (nums.Length == 0)
+            {
+                return -1;
+            }
+            else if (nums.Length == 1)
+            {
+                return 0;
+            }
+            else if (nums.Length == 2 && nums[1] == 0)
+            {
+                return 0;
+            }
+            else if (nums.Length == 2)
+            {
+                return -1;
+            }
+            // else if (nums.Length == 3 && nums[nums.Length - 1] + nums[1] == 0)
+            // {
+            //     return 0;
+            // }
+            // else if (nums.Length == 3 && (nums[0] + nums[1] == 0))
+            // {
+            //     return 2;
+            // }
+            // else if (nums.Length == 3 && nums[nums.Length - 1] == nums[0])
+            // {
+            //     return 1;
+            // }
+
+
+            int sumLeft = 0;
+            int sumRight = 0;
+            int indexRight = nums.Length - 1;
+            int indexPivot = 0;
+
+            while (indexPivot != indexRight)
+            {
+                if (sumLeft < sumRight)
+                {
+                    indexPivot++;
+                    sumLeft += nums[indexPivot - 1];
+                }
+                else if (sumRight <= sumLeft )
+                {
+                    sumRight += nums[indexRight];
+                    indexRight--;
+                }
+            }
+
+            if (sumLeft == sumRight)
+            {
+                return indexPivot;
+            }
+
+            return -1;
         }
+
+
+
     }
 }
