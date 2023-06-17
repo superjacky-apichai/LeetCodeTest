@@ -33,28 +33,6 @@ namespace Array
         {
             int[] res = new int[mat.Length * mat[0].Length];
             int count = 0;
-            if (mat.Length < 2)
-            {
-                for (int k = 0; k < mat[0].Length; k++)
-                {
-                    res[count] = mat[0][k];
-                    count++;
-
-                }
-                return res;
-            }
-            else if (mat[0].Length < 2)
-            {
-                for (int k = 0; k < mat.Length; k++)
-                {
-                    res[count] = mat[k][0];
-                    count++;
-
-                }
-                return res;
-            }
-
-
             bool isUpOrDown = true;
             int i = 0;
             int j = 0;
