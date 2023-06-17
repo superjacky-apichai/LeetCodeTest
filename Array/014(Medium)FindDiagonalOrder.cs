@@ -35,38 +35,99 @@ namespace Array
             int count = 0;
             if (mat.Length < 2)
             {
-                Console.Write("Active1");
                 for (int k = 0; k < mat[0].Length; k++)
                 {
                     res[count] = mat[0][k];
                     count++;
 
                 }
-
                 return res;
             }
             else if (mat[0].Length < 2)
             {
-                Console.Write("Active2");
                 for (int k = 0; k < mat.Length; k++)
                 {
                     res[count] = mat[k][0];
                     count++;
 
                 }
-
                 return res;
             }
 
 
-            int i = mat.Length - 1;
-            int j = mat[i].Length - 1;
-            bool isUpOrDown = ((mat.Length + mat[0].Length)) % 2 == 0 ? false : true;
-            int[] sum = new int[2] { i, j };
-            int startPoint = 0;
+            bool isUpOrDown = true;
+            int i = 0;
+            int j = 0;
+            int lenRow = mat.Length - 1;
+            int lenColum = mat[lenRow].Length - 1;
 
 
-            Array.Reverse(res);
+            while (i <= lenRow && j <= lenColum)
+            {
+
+                if (isUpOrDown)
+                {
+                    res[count] = mat[i][j];
+                    count++;
+                    j++;
+                    i--;
+
+                    if (j > lenColum)
+                    {
+                        j--;
+                        i += 2;
+                        isUpOrDown = false;
+
+                    }
+                    else if (i < 0)
+                    {
+                        isUpOrDown = false;
+                        i++;
+                        if (j > lenColum)
+                        {
+                            j--;
+                        }
+
+
+                    }
+
+
+                }
+                else if (!isUpOrDown)
+                {
+                    res[count] = mat[i][j];
+                    count++;
+                    j--;
+                    i++;
+
+                    if (i > lenRow)
+                    {
+                        i--;
+                        j += 2;
+                        isUpOrDown = true;
+
+                    }
+                    else if (j < 0)
+                    {
+                        isUpOrDown = true;
+                        j++;
+                        if (i > lenRow)
+                        {
+                            i--;
+                        }
+
+                    }
+
+                }
+
+
+
+
+
+
+            }
+
+
             return res;
         }
 
