@@ -8,7 +8,8 @@ namespace Array
     public class SpiralMatrix
     {
         public IList<int> SpiralOrder(int[][] matrix)
-        {
+        {        
+        
             int[] res = new int[matrix.Length * matrix[0].Length];
             int count = 0;
             int i = 0;
@@ -16,15 +17,16 @@ namespace Array
             bool switchRowOrColum = false;
             bool switchUpAndLeftOrDownAndRigth = false;
             int maxRow = matrix.Length - 1;
-            int maxColum = matrix.Length - 1;
+            int maxColum = matrix[i].Length - 1;
             int minRow = 1;
             int minColum = 0;
 
 
-            while (count < matrix.Length * matrix[i].Length)
-            {
+            while (count < (matrix.Length * matrix[i].Length))
+            {               
                 res[count] = matrix[i][j];
-                count++;
+                
+                    count++;
 
                 if (switchRowOrColum)
                 {
@@ -81,7 +83,7 @@ namespace Array
                     switchUpAndLeftOrDownAndRigth = false;
                 }
 
-
+                  
             }
 
 
