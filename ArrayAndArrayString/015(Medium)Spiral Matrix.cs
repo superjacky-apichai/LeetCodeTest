@@ -2,7 +2,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+/*Given an m x n matrix, return all elements of the matrix in spiral order.
 
+ 
+
+Example 1:
+
+
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,3,6,9,8,7,4,5]
+Example 2:
+
+
+Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+ 
+
+Constraints:
+
+m == matrix.length
+n == matrix[i].length
+1 <= m, n <= 10
+-100 <= matrix[i][j] <= 100*/
 namespace Array
 {
     public class SpiralMatrix
@@ -101,32 +122,33 @@ namespace Array
 
         /* Great Solution */
 
-        public IList<int> SpiralOrder(int[][] matrix)  {
-        int width=matrix[0].Length;
-        int height=matrix.Length;
-        int length=width*height;
-        List<int> ans = new List<int>(length);
-        int x=0,y=0,dx=1,dy=1;
-        while(ans.Count<length)
+        public IList<int> SpiralOrder(int[][] matrix)
         {
-            ans.Add(matrix[y][x]);
-            if(y==dy-1 && x<width-dx)
-                x++;
-            else if(x==width-dx && y<height-dy)
-                y++;
-            else if(x>dx-1) 
-                x--;
-            else if(y>dy)
+            int width = matrix[0].Length;
+            int height = matrix.Length;
+            int length = width * height;
+            List<int> ans = new List<int>(length);
+            int x = 0, y = 0, dx = 1, dy = 1;
+            while (ans.Count < length)
             {
-                y--;
-                if(y==dy && x==dx-1)
+                ans.Add(matrix[y][x]);
+                if (y == dy - 1 && x < width - dx)
+                    x++;
+                else if (x == width - dx && y < height - dy)
+                    y++;
+                else if (x > dx - 1)
+                    x--;
+                else if (y > dy)
                 {
-                    dx++;
-                    dy++;
+                    y--;
+                    if (y == dy && x == dx - 1)
+                    {
+                        dx++;
+                        dy++;
+                    }
                 }
             }
+            return ans;
         }
-        return ans;
-    }
     }
 }
