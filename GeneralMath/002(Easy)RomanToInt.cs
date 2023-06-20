@@ -29,12 +29,14 @@ namespace GeneralMath
     {
         public int RomanToInt(string s)
         {
+            char[] res = s.ToCharArray();
             int sum = 0;
 
-            char[] res = s.ToCharArray();
+
 
             for (int i = 0; i < res.Length; i++)
             {
+                  
                 switch (res[i])
                 {
 
@@ -63,6 +65,25 @@ namespace GeneralMath
                     default:
                         break;
                 }
+                if (i > 0)
+                {
+
+                    if ((res[i] == 'V' || res[i] == 'X') && res[i-1] == 'I')
+                    {   
+                        sum -=2 ;
+                    }
+                    else if ((res[i] == 'L' || res[i] == 'C') && res[i-1] == 'X')
+                    {
+                        sum -= 20;
+                    }
+                    else if ((res[i] == 'D' || res[i] == 'M') && res[i-1] == 'C')
+                    {
+                        sum -= 200;
+                    }
+
+                }
+
+
             }
 
             return sum;
@@ -75,3 +96,5 @@ namespace GeneralMath
 
     }
 }
+
+
