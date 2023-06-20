@@ -27,23 +27,110 @@ namespace ArrayAndArrayString
     {
         public string AddBinary(string a, string b)
         {
-            char[] charA = a.ToCharArray();
-            char[] charB = b.ToCharArray();
-            string res ="";
-            int backup = 1;
-
-            for (int i = 0; i < a.Length; i++)
+            char[] charA = a.Length >= b.Length ? a.ToCharArray() : b.ToCharArray();
+            char[] charB = b.Length <= a.Length ? b.ToCharArray() : a.ToCharArray();
+            List<char> res = new List<char>();
+            int backup = 0;
+            int count = charB.Length-1;
+            
+           
+            for (int i = charA.Length-1; i >=0; i--)
             {
-                for (int j = 0; j < b.Length; j++)
+                if (count ==-1)
                 {
-                    if(CharA[i])
-                       
+                    if (charA[i] == '0' && backup > 0)
+                    {
+                        res.Add('1');
+                        backup--;
+                        continue;
+                    }
+                    else if (charA[i] == '0' && backup < 1)
+                    {
+                        res.Add('0');
+                        continue;
+                    }
+                    else if (charA[i] == '1' && backup > 0)
+                    {
+                        res.Add('0');
+                        continue;
+                    }
+                    else if (charA[i] == '1' && backup < 1)
+                    {
+                        res.Add('1');
+                        continue;
+                    }
                 }
+                else
+                {
+
+                    if (((charB[count] == '1' && charA[i] == '0') || (charB[count] == '0' && charA[i] == '1')) && backup > 0)
+                    {
+
+                        res.Add('0');
+                        backup = 1;
+                        count--;
+                        continue;
+                    }
+                    else if (((charB[count] == '1' && charA[i] == '0') || (charB[count] == '0' && charA[i] == '1')) && backup < 1)
+                    {
+
+                        res.Add('1');
+
+                        count--;
+                        continue;
+                    }
+                    else if (charB[count] == '1' && charA[i] == '1' && backup < 1)
+                    {
+
+
+                        backup = 1;
+                        res.Add('0');
+                        count--;
+                        continue;
+                    }
+                    else if (charB[count] == '1' && charA[i] == '1' && backup > 0)
+                    {
+
+                        backup = 1;
+                        res.Add('1');
+                        count--;
+                        continue;
+                    }
+                    else if (charB[count] == '0' && charA[i] == '0' && backup > 0)
+                    {
+
+                        backup--;
+                        res.Add('1');
+                        count--;
+                        continue;
+
+                    }
+                    else if (charB[count] == '0' && charA[i] == '0')
+                    {
+
+                        res.Add('0');
+                        count--;
+                        continue;
+
+                    }
+                }
+
+
+
             }
 
+            if (backup > 0)
+            {
+                res.Add('1');
+            }
+            res.Reverse();
+            return String.Join("", res);
         }
 
 
 
+
+
     }
+
 }
