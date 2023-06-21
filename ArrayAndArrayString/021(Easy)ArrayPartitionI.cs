@@ -33,26 +33,27 @@ namespace ArrayAndArrayString
     {
         public int ArrayPairSum(int[] nums)
         {
-            int maxValue1 = nums[0] >= nums[1] ? nums[0] : nums[1];
-            int maxValue2 = nums[1] <= nums[0] ? nums[1] : nums[0];
+            int maxValue1 = 0;
+            int maxValue2 = 0;
             int sumMin = 0;
-            if (maxValue1 < maxValue2)
-            {
-                int temp = maxValue1;
-                maxValue1 = maxValue2;
-                maxValue2 = temp;
-            }
-            for (int i = 2; i < nums.Length; i++)
-            {
 
-                for (int j = 2; j < nums.Length; j++)
+            for (int i = 1; i < nums.Length; i += 2)
+            {
+                maxValue1 = nums[i] >= nums[i-1] ? nums[i]:nums[i-1];
+                maxValue2 = nums[i - 1]<=nums[i]? nums[i-1]:nums[i];
+               
+                  
+            
+                for (int j = i+1; j < nums.Length; j++)
                 {
 
+                  
                     if (maxValue2 < nums[j])
                     {
                         int temp = maxValue2;
                         maxValue2 = nums[j];
                         nums[j] = temp;
+
 
                     }
                     if (maxValue1 < maxValue2)
@@ -61,13 +62,13 @@ namespace ArrayAndArrayString
                         maxValue1 = maxValue2;
                         maxValue2 = temp;
                     }
+                    
 
                 }
-                Console.Write(maxValue1 + " ");
-                Console.Write(maxValue2 + " ");
+                  
+
                 sumMin += Math.Min(maxValue1, maxValue2);
-                maxValue1 = nums[i + 1];
-                maxValue2 = nums[i + 2];
+                  
 
             }
 
