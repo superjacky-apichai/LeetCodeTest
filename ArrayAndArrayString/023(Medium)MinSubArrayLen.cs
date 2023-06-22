@@ -38,20 +38,29 @@ namespace ArrayAndArrayString
         public int MinSubArrayLen(int target, int[] nums)
         {
             Array.Sort(nums);
+           
             int i = 0;
-            int j = nums.Length - 1;
-            int count = 0;
+            int checkPoint = 0;
+            int sum = 0;
             if (nums.Length > 2)
             {
-                while (j>=0)
                 
-                    if (nums[i] == target || nums[j] == target || nums[i + 1] == target || nums[j - 1] == target)
+                while (i<nums.Length)
+                
+                    if (nums[i] == target)
                     {
                         return 1;
+                    
                     }
-                    else if(nums[i]+nums[i+1]==target||nums[j]+nums[j-1]==target||nums[i]+nums[j]==target)
-                    { 
-                        return 2;
+
+                    sum += i;
+                    if(sum == target){
+                       return i-checkPoint;
+                    }else if(sum < target){
+                        i++;
+                        continue;
+                    }else if(sum > target){
+                       
                     }
                    
                 }
