@@ -41,25 +41,69 @@ namespace ArrayAndArrayString
     {
         public void Rotate(int[] nums, int k)
         {
-            int[] stock = new int[k];
-            int sumLength = k - 1;
-            int pointer = 0;
-            int temp = 0;
-            for (int i = 0; i < nums.Length-1; i++)
+            k = k % nums.Length;
+            if (nums.Length > 1 && k > 0)
             {
-                temp = num[sumLength];
-                nums[sumLength] = nums[pointer];
-                pointer++;
-                sumLength += 3;
-                if (sumLength >= nums.Length)
-                { 
-                    sumLength = nums.Length % k == 0 ? nums.Length - 1 - sumLength : nums.Length - sumLength;
+                int sumLength = k;
+                int pointer = 0;
+                int temp = 0;
+                int temp2 = 0;
+
+                if (nums.Length % k == 0)
+                {
+                    while (pointer < k)
+                    {
+                        if (sumLength >= nums.Length)
+                        {
+                            sumLength = sumLength - nums.Length;
+
+                        }
+                        int count = 1;
+                        temp = nums[sumLength];
+                        nums[sumLength] = nums[pointer];
+                        while (count <= nums.Length / k)
+                        {
+                            sumLength = (sumLength + k) % nums.Length;
+
+                            temp2 = nums[sumLength];
+                            nums[sumLength] = temp;
+                            temp = temp2;
+                            count++;
+
+
+
+                        }
+
+                        pointer++;
+                        sumLength = (k + pointer) % nums.Length;
+
+                    }
+
+
                 }
+                else
+                {
+                    temp = nums[sumLength];
+                    nums[sumLength] = nums[0];
+                    sumLength = (sumLength + k) % nums.Length;
+
+                    for (pointer = 1; pointer < nums.Length; pointer++)
+                    {
+                        temp2 = nums[sumLength];
+                        nums[sumLength] = temp;
+                        temp = temp2;
+
+                        sumLength = (sumLength + k) % nums.Length;
+                        Console.Write(8 % 6);
+
+
+                    }
+
+                }
+
+                nums.C
+
             }
-
-
-            nums = res;
-
         }
 
     }
