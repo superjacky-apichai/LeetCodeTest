@@ -44,65 +44,17 @@ namespace ArrayAndArrayString
             k = k % nums.Length;
             if (nums.Length > 1 && k > 0)
             {
-                int sumLength = k;
-                int pointer = 0;
-                int temp = 0;
-                int temp2 = 0;
+                int[] res = new int[nums.Length];
+                
 
-                if (nums.Length % k == 0)
+                for (int i = 0; i < nums.Length; i++)
                 {
-                    while (pointer < k)
-                    {
-                        if (sumLength >= nums.Length)
-                        {
-                            sumLength = sumLength - nums.Length;
-
-                        }
-                        int count = 1;
-                        temp = nums[sumLength];
-                        nums[sumLength] = nums[pointer];
-                        while (count <= nums.Length / k)
-                        {
-                            sumLength = (sumLength + k) % nums.Length;
-
-                            temp2 = nums[sumLength];
-                            nums[sumLength] = temp;
-                            temp = temp2;
-                            count++;
-
-
-
-                        }
-
-                        pointer++;
-                        sumLength = (k + pointer) % nums.Length;
-
-                    }
-
-
-                }
-                else
-                {
-                    temp = nums[sumLength];
-                    nums[sumLength] = nums[0];
-                    sumLength = (sumLength + k) % nums.Length;
-
-                    for (pointer = 1; pointer < nums.Length; pointer++)
-                    {
-                        temp2 = nums[sumLength];
-                        nums[sumLength] = temp;
-                        temp = temp2;
-
-                        sumLength = (sumLength + k) % nums.Length;
-                        Console.Write(8 % 6);
-
-
-                    }
+                    res[(k+i)%nums.Length] = nums[i];
 
                 }
 
-                nums.C
 
+              Array.Copy(res,0,nums,0,nums.Length);
             }
         }
 
