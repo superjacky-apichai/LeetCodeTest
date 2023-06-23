@@ -2,11 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace Array
-{
-
-    /*Given an integer numRows, return the first numRows of Pascal's triangle.
+/*Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
 
 In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
 
@@ -15,24 +11,32 @@ In Pascal's triangle, each number is the sum of the two numbers directly above i
 
 Example 1:
 
-Input: numRows = 5
-Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+Input: rowIndex = 3
+Output: [1,3,3,1]
 Example 2:
 
-Input: numRows = 1
-Output: [[1]]
+Input: rowIndex = 0
+Output: [1]
+Example 3:
+
+Input: rowIndex = 1
+Output: [1,1]
  
 
 Constraints:
 
-1 <= numRows <= 30*/
-    public class pascalsTriangle
-    {
+0 <= rowIndex <= 33
+ 
 
-        public IList<IList<int>> Generate(int numRows)
-        {
+Follow up: Could you optimize your algorithm to use only O(rowIndex) extra space?*/
+namespace ArrayAndArrayString
+{
+    public class PascalsTriangleII
+    {
+        public IList<int> GetRow(int rowIndex)
+       {
             IList<IList<int>> layer1 = new List<IList<int>>();
-            if (numRows < 2)
+            if (rowIndex < 2)
             {
                 layer1.Add(new List<int> { 1 });
             }
@@ -43,7 +47,7 @@ Constraints:
             }
 
 
-            for (int i = 3; i <= numRows; i++)
+            for (int i = 3; i <= rowIndex+1; i++)
             {
                 IList<int> layer2 = new List<int>();
                 layer2.Add(1);
@@ -53,12 +57,14 @@ Constraints:
                 }
                 layer2.Add(1);
                 layer1.Add(layer2);
+               if(i==rowIndex+1){
+                return layer2;
+               }
 
             }
+               return rowIndex == 0 ? new List<int> { 1 }:new List<int> { 1, 1 };
 
-
-            return layer1.IndexOf(3);
+            
         }
-
     }
 }
