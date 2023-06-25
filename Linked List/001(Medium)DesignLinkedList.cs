@@ -48,7 +48,174 @@ namespace LinkedList
 
         public class MyLinkedList
         {
-            
+
+            public class Node
+            {
+                public int val;
+                public Node prev;
+                public Node next;
+
+                public Node(int val)
+                {
+                    this.val = val;
+                    this.prev = null;
+                    this.next = null;
+                }
+            }
+            Node head;
+
+            public MyLinkedList()
+            {
+
+            }
+
+            public Node FindIndex(int index)
+            {
+
+                if (head != null)
+                {
+                    int count = 0;
+                    Node temp = head;
+                    if (index == 0)
+                    {
+                        return head != null ? head : null;
+                    }
+                    while (temp.next != null)
+                    {
+                        temp = temp.next;
+                        count++;
+                        if (count == index)
+                        {
+                            return temp;
+                        }
+
+                    }
+                }
+
+                return null;
+
+            }
+            public int Get(int index)
+            {
+                return FindIndex(index) != null ? FindIndex(index).val : -1;
+
+            }
+
+            public void AddAtHead(int val)
+            {
+                Node new_node = new Node(val);
+                new_node.prev = null;
+                if (head != null)
+                {
+                    head.prev = new_node;
+                    new_node.next = head;
+                }
+
+                head = new_node;
+
+            }
+
+            public void AddAtTail(int val)
+            {
+                Node new_node = new Node(val);
+                new_node.next = null;
+                if (head == null)
+                {
+
+                    new_node.prev = null;
+                    head = new_node;
+                    return;
+                }
+                Node temp = FindLastest();
+                temp.next = new_node;
+                new_node.prev = temp;
+            }
+
+            public Node FindLastest()
+            {
+                Node temp = head;
+                while (temp.next != null)
+                {
+                    temp = temp.next;
+                }
+
+                return temp;
+
+            }
+
+            public void AddAtIndex(int index, int val)
+            {
+                if (head != null)
+                {
+                    if (index == 0)
+                    {
+                        AddAtHead(val);
+                        return;
+                    }
+                    Node target = FindIndex(index);
+                    if (target == null)
+                    {
+                        AddAtTail(val);
+                        return;
+                    }
+                    Node new_node = new Node(val);
+                    Node prev = target.prev;
+
+                    if (prev != null)
+                    {
+                        prev.next = new_node;
+                        new_node.prev = prev;
+                    }
+
+                    new_node.next = target;
+                    target.prev = new_node;
+                }else if(index ==0){
+                    AddAtHead(val);
+                }
+
+
+            }
+
+            public void DeleteAtIndex(int index)
+            {
+                Node target = FindIndex(index);
+
+                if (target != null)
+                {
+                    Node next = target.next;
+                    Node prev = target.prev;
+                    if (next == null && prev != null)
+                    {
+                        prev.next = null;
+                        return;
+                    }
+                    else if (prev == null && next != null)
+                    {
+
+                        head = head.next;
+                        head.prev = null;
+
+                        return;
+
+                    }
+                    else if (prev == null && next == null)
+                    {
+
+                        head = null;
+                        return;
+                    }
+
+
+                    next.prev = prev;
+                    prev.next = next;
+                }
+
+
+
+            }
+
+
+
         }
     }
 }
