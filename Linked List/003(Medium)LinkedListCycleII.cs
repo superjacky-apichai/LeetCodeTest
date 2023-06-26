@@ -59,31 +59,40 @@ namespace LinkedList
                     return null;
                 }
                 ListNode slow = head;
-                ListNode fast = head.next;
-                int countSlow = 0;
-                int countFast = 1;
+                ListNode fast = head;
+               
+
 
                 while (fast.next != null && fast.next.next != null)
                 {
 
-                    if (slow.next == fast.next.next)
-                    {
-                       int count =1;
-                       slow = slow.next;
-                       while(slow != fast){
-                        slow= slow.next;
-                        count++;
-                       }
-                        return fast;
-                    }
                     slow = slow.next;
-                    countSlow++;
                     fast = fast.next.next;
-                    countFast+=2;
+
+                    if (slow == fast)
+                    {
+                        slow = head;
+                        while (slow != fast)
+                        {
+                            slow = slow.next;
+                            fast = fast.next;
+                        }
+
+                        if (slow == fast)
+                        {
+                            return slow;
+                        }
+                    }
 
                 }
 
                 return null;
+
+
+            }
+
+            public ListNode FindIndex(int index)
+            {
 
 
             }
