@@ -51,9 +51,45 @@ namespace LinkedList
                 val = x;
                 next = null;
             }
+
+            public ListNode DetectCycle(ListNode head)
+            {
+                if (head == null || head.next == null)
+                {
+                    return null;
+                }
+                ListNode slow = head;
+                ListNode fast = head.next;
+                int countSlow = 0;
+                int countFast = 1;
+
+                while (fast.next != null && fast.next.next != null)
+                {
+
+                    if (slow.next == fast.next.next)
+                    {
+                       int count =1;
+                       slow = slow.next;
+                       while(slow != fast){
+                        slow= slow.next;
+                        count++;
+                       }
+                        return fast;
+                    }
+                    slow = slow.next;
+                    countSlow++;
+                    fast = fast.next.next;
+                    countFast+=2;
+
+                }
+
+                return null;
+
+
+            }
         }
-       
-       
+
+
 
 
     }
