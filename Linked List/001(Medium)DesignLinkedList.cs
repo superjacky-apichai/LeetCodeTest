@@ -52,13 +52,11 @@ namespace LinkedList
             public class Node
             {
                 public int val;
-                public Node prev;
                 public Node next;
 
                 public Node(int val)
                 {
                     this.val = val;
-                    this.prev = null;
                     this.next = null;
                 }
             }
@@ -71,154 +69,126 @@ namespace LinkedList
 
             public Node FindIndex(int index)
             {
-
-                if (head != null)
+                if (index == 0)
                 {
-                    int count = 0;
-                    Node temp = head;
-                    if (index == 0)
-                    {
-                        return head != null ? head : null;
-                    }
-                    while (temp.next != null)
-                    {
-                        temp = temp.next;
-                        count++;
-                        if (count == index)
-                        {
-                            return temp;
-                        }
+                    return head != null ? head : null;
+                }
+                Node temp = head;
+                int count = 0;
+                if (temp == null)
+                {
+                    return null;
+                }
 
+                while (temp.next != null)
+                {
+                    temp = temp.next;
+                    count++;
+                    if (index == count)
+                    {
+                        return temp;
                     }
                 }
 
                 return null;
 
             }
+
             public int Get(int index)
             {
                 return FindIndex(index) != null ? FindIndex(index).val : -1;
-
             }
 
             public void AddAtHead(int val)
             {
-                Node new_node = new Node(val);
-                new_node.prev = null;
-                if (head != null)
+                Node newNode = new Node(val);
+                if (head == null)
                 {
-                    head.prev = new_node;
-                    new_node.next = head;
+                    head = newNode;
+                    return;
                 }
 
-                head = new_node;
+                newNode.next = head;
+                head = newNode;
 
             }
 
             public void AddAtTail(int val)
             {
-                Node new_node = new Node(val);
-                new_node.next = null;
                 if (head == null)
                 {
-
-                    new_node.prev = null;
-                    head = new_node;
+                    AddAtHead(val);
                     return;
                 }
-                Node temp = FindLastest();
-                temp.next = new_node;
-                new_node.prev = temp;
+                Node newNode = new Node(val);
+                newNode.next = null;
+                Node lastNode = FindLastNode();
+                lastNode.next = newNode;
             }
 
-            public Node FindLastest()
+            public Node FindLastNode()
             {
                 Node temp = head;
+
                 while (temp.next != null)
                 {
                     temp = temp.next;
                 }
-
                 return temp;
-
             }
 
             public void AddAtIndex(int index, int val)
             {
-                if (head != null)
+                if (index == 0)
                 {
-                    if (index == 0)
-                    {
-                        AddAtHead(val);
-                        return;
-                    }
-                    Node target = FindIndex(index);
-                    if (target == null)
-                    {
-                        AddAtTail(val);
-                        return;
-                    }
-                    Node new_node = new Node(val);
-                    Node prev = target.prev;
-
-                    if (prev != null)
-                    {
-                        prev.next = new_node;
-                        new_node.prev = prev;
-                    }
-
-                    new_node.next = target;
-                    target.prev = new_node;
-                }else if(index ==0){
                     AddAtHead(val);
+                    return;
                 }
+
+                Node curNode = FindIndex(index - 1);
+                if (curNode == null)
+                {
+                    return;
+                }
+
+                Node newNode = new Node(val);
+                newNode.next = curNode.next;
+                curNode.next = newNode;
 
 
             }
 
             public void DeleteAtIndex(int index)
             {
-                Node target = FindIndex(index);
-
-                if (target != null)
+                if (index == 0)
                 {
-                    Node next = target.next;
-                    Node prev = target.prev;
-                    if (next == null && prev != null)
+                    if (head.next != null)
                     {
-                        prev.next = null;
-                        return;
-                    }
-                    else if (prev == null && next != null)
-                    {
-
                         head = head.next;
-                        head.prev = null;
-
-                        return;
-
-                    }
-                    else if (prev == null && next == null)
-                    {
-
-                        head = null;
                         return;
                     }
+                    head = null;
+                    return;
 
-
-                    next.prev = prev;
-                    prev.next = next;
                 }
+                Node prev = FindIndex(index - 1);
+                Node cur = FindIndex(index);
 
-
-
+                if (cur == null)
+                {
+                    return;
+                }
+                prev.next = cur.next;
+                cur.next = null;
+                cur = null;
             }
-
-
-
         }
+
+
+
     }
 }
+
 
 /**
  * Your MyLinkedList object will be instantiated and called as such:
