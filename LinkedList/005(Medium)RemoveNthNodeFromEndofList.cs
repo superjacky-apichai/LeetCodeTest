@@ -50,7 +50,64 @@ namespace LinkedList
     {
 
         public ListNode RemoveNthFromEnd(ListNode head, int n)
-        { }
+        {
+            int count = 1;
+            ListNode temp = head;
+            while (temp.next != null)
+            {
+                temp = temp.next;
+                count++;
+            }
+            temp = null;
+            if (count == 1 && n == 1)
+            {
+
+                head = null;
+
+            }
+            else if (count == 2)
+            {
+                if (n == 2)
+                {
+                    head = head.next;
+                }
+                else if (n == 1)
+                {
+                    head.next = null;
+                }
+            }
+            else
+            {
+
+                ListNode slow = head;
+                ListNode fast = head;
+                int count1 = 1;
+                int rescount = Math.Abs(count - (n - 1));
+                Console.Write(rescount);
+                if (rescount == 1)
+                {
+                    head = head.next;
+                }
+                else
+                {
+                    while (count1 < rescount)
+                    {
+
+                        slow = fast;
+                        fast = fast.next;
+
+                        count1++;
+
+                    }
+                    fast = fast.next;
+                    slow.next = fast;
+                    fast = null;
+                    slow = null;
+                }
+            }
+            return head;
+
+        }
 
     }
 }
