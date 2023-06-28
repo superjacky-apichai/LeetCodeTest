@@ -34,12 +34,37 @@ namespace LinkedList
             }
 
             ListNode temp = head;
-            ListNode evenNode = head.next;
-            int count = 0;
+            ListNode evenNode = temp.next;
+            temp.next = evenNode.next;
+            temp = temp.next;
+            evenNode.next = null;
+            ListNode evenTemp = evenNode;
+            while (temp != null && temp.next != null)
+            {
+
+                evenTemp.next = temp.next;
+                evenTemp = evenTemp.next;
+                if (evenTemp.next == null)
+                {
+                    break;
+                }
+                temp.next = evenTemp.next;
+                temp = temp.next;
+                evenTemp.next = null;
+
+
+            }
 
 
 
-            return evenNode;
+            temp.next = evenNode;
+            evenNode = null;
+            evenTemp= null;
+            temp=null;
+
+
+
+            return head;
         }
     }
 }
