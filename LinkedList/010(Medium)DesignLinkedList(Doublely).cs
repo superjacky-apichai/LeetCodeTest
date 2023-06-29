@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 /*Design your implementation of the linked list. You can choose to use a singly or doubly linked list.
 A node in a singly linked list should have two attributes: val and next. val is the value of the current node, and next is a pointer/reference to the next node.
 If you want to use the doubly linked list, you will need one more attribute prev to indicate the previous node in the linked list. Assume all nodes in the linked list are 0-indexed.
@@ -48,60 +47,54 @@ namespace LinkedList
 
         public class MyLinkedList
         {
-
-            public class Node
+            public class doubleNode
             {
                 public int val;
-                public Node next;
+                public doubleNode prev;
+                public doubleNode next;
 
-                public Node(int val)
+                public doubleNode(int val)
                 {
                     this.val = val;
-                    this.next = null;
+                    prev = null;
+                    next = null;
                 }
             }
-            Node head;
 
+            public doubleNode head;
             public MyLinkedList()
             {
-
             }
 
-            public Node FindIndex(int index)
+            public doubleNode FindByIndex(int index)
             {
-                if (index == 0)
-                {
-                    return head != null ? head : null;
-                }
-                Node temp = head;
-                int count = 0;
-                if (temp == null)
-                {
-                    return null;
-                }
+                doubleNode temp = head;
+                int findIndex = 0;
 
-                while (temp.next != null)
+                while (temp != null)
                 {
-                    temp = temp.next;
-                    count++;
-                    if (index == count)
+
+                    if (findIndex == index)
                     {
-                        return temp;
+                        break;
                     }
+                    temp = temp.next;
+                    findIndex++;
                 }
 
-                return null;
-
+                return temp != null ? temp : null;
             }
 
             public int Get(int index)
             {
-                return FindIndex(index) != null ? FindIndex(index).val : -1;
+
+
+                return FindByIndex(index) != null ? FindByIndex(index).val : -1;
             }
 
             public void AddAtHead(int val)
             {
-                Node newNode = new Node(val);
+                doubleNode newNode = new doubleNode(val);
                 if (head == null)
                 {
                     head = newNode;
@@ -109,33 +102,37 @@ namespace LinkedList
                 }
 
                 newNode.next = head;
+                head.prev = newNode;
                 head = newNode;
-
             }
 
             public void AddAtTail(int val)
             {
-
+                doubleNode newNode = new doubleNode(val);
                 if (head == null)
                 {
-                    AddAtHead(val);
+                    head = newNode;
                     return;
                 }
-                Node newNode = new Node(val);
-                newNode.next = null;
-                Node lastNode = FindLastNode();
-                lastNode.next = newNode;
+
+                doubleNode temp = FindLastIndex();
+
+                newNode.prev = temp;
+                temp.next = newNode;
+
             }
 
-            public Node FindLastNode()
+            public doubleNode FindLastIndex()
             {
-                Node temp = head;
+                doubleNode temp = head;
 
                 while (temp.next != null)
                 {
                     temp = temp.next;
                 }
+
                 return temp;
+
             }
 
             public void AddAtIndex(int index, int val)
@@ -145,16 +142,22 @@ namespace LinkedList
                     AddAtHead(val);
                     return;
                 }
+                doubleNode findNode = FindByIndex(index);
 
-                Node curNode = FindIndex(index - 1);
-                if (curNode == null)
+                if (findNode == null && FindByIndex(index - 1) != null)
+                {
+                    AddAtTail(val);
+                    return;
+                }
+                else if (findNode == null && FindByIndex(index - 1) == null)
                 {
                     return;
                 }
-
-                Node newNode = new Node(val);
-                newNode.next = curNode.next;
-                curNode.next = newNode;
+                doubleNode newNode = new doubleNode(val);
+                newNode.prev = findNode.prev;
+                findNode.prev.next = newNode;
+                findNode.prev = newNode;
+                newNode.next = findNode;
 
 
             }
@@ -166,37 +169,32 @@ namespace LinkedList
                     if (head.next != null)
                     {
                         head = head.next;
+                        head.prev = null;
+
                         return;
                     }
+
                     head = null;
                     return;
-
                 }
-                Node prev = FindIndex(index - 1);
-                Node cur = FindIndex(index);
 
-                if (cur == null)
+                doubleNode findNode = FindByIndex(index);
+                if (findNode == null)
                 {
                     return;
                 }
-                prev.next = cur.next;
-                cur.next = null;
-                cur = null;
+                doubleNode prev = findNode.prev;
+                doubleNode next = findNode.next;
+                prev.next = next;
+                if (next != null)
+                {
+                    next.prev = prev;
+                }
+
+
+
             }
+
         }
-
-
-
     }
 }
-
-
-/**
- * Your MyLinkedList object will be instantiated and called as such:
- * MyLinkedList obj = new MyLinkedList();
- * int param_1 = obj.Get(index);
- * obj.AddAtHead(val);
- * obj.AddAtTail(val);
- * obj.AddAtIndex(index,val);
- * obj.DeleteAtIndex(index);
- */
