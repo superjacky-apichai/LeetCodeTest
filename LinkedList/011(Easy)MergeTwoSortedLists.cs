@@ -31,8 +31,76 @@ namespace LinkedList
 {
     public class MergeTwoSortedLists
     {
+        public class ListNode
+        {
+            public int val;
+            public ListNode next;
+            public ListNode(int val = 0, ListNode next = null)
+            {
+                this.val = val;
+                this.next = next;
+            }
+        }
         public ListNode MergeTwoLists(ListNode list1, ListNode list2)
         {
+            if (list1 == null && list2 == null)
+            {
+                return null;
+            }
+            else if (list1 != null && list2 == null)
+            {
+                return list1;
+
+            }
+            else if (list1 == null && list2 != null)
+            {
+                return list2;
+
+            }
+            ListNode temp = list1;
+            while (temp.next != null)
+            {
+                temp = temp.next;
+
+            }
+
+            temp.next = list2;
+            temp = null;
+
+            ListNode newNode = new ListNode(int.MinValue);
+            ListNode tempNew = newNode;
+
+
+            while (list1 != null)
+            {
+
+                ListNode min = list1;
+                list1 = list1.next;
+                min.next = null;
+                tempNew = newNode;
+                while (tempNew != null)
+                {
+
+                    if (tempNew.next == null)
+                    {
+                        tempNew.next = min;
+                        break;
+                    }
+                    else if (tempNew.next != null && tempNew.next.val >= min.val)
+                    {
+                        min.next = tempNew.next;
+                        tempNew.next = min;
+                        break;
+
+                    }
+
+                    tempNew = tempNew.next;
+                }
+            }
+
+
+            newNode = newNode.next;
+            return newNode;
 
         }
 
