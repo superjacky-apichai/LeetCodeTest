@@ -63,7 +63,84 @@ namespace LinkedList
     {
         public Node CopyRandomList(Node head)
         {
+            if (head == null)
+            {
+                return head;
+            }
 
+            Node newNode = new Node(0);
+            Node newTemp = newNode;
+            Node temp = head;
+            int count = 0;
+
+            while (temp != null)
+            {
+
+                newTemp.next = new Node(temp.val);
+                temp = temp.next;
+                newTemp = newTemp.next;
+                count++;
+
+            }
+            temp = null;
+            int[] storeIndex = FindIndex(head, count);
+            head = null;
+            newNode = newNode.next;
+            newTemp = newNode;
+
+
+
+            for (int i = 0; i < storeIndex.Length; i++)
+            {
+                Node findTemp = newNode;
+                int findIndex = storeIndex[i];
+
+
+                while (findIndex != 0)
+                {
+                    findTemp = findTemp.next;
+                    findIndex--;
+
+                }
+
+
+                newTemp.random = findTemp;
+
+
+                newTemp = newTemp.next;
+
+                if (newTemp == null)
+                {
+                    break;
+                }
+            }
+
+
+            return newNode;
+        }
+
+        public int[] FindIndex(Node node, int size)
+        {
+            int countArr = 0;
+            int[] storeIndex = new int[size];
+            Node tempHead = node;
+            while (tempHead != null)
+            {
+                Node temp = tempHead.random;
+                int count = 0;
+                while (temp != null)
+                {
+                    temp = temp.next;
+                    count++;
+                }
+                count = Math.Abs(count - size);
+                storeIndex[countArr] = count;
+                countArr++;
+                tempHead = tempHead.next;
+
+            }
+            tempHead = null;
+            return storeIndex;
         }
     }
 }

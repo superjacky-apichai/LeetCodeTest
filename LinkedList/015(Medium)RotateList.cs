@@ -39,6 +39,74 @@ namespace LinkedList
     {
         public ListNode RotateRight(ListNode head, int k)
         {
+            if (head == null)
+            {
+                return head;
+            }
+            int size = k % FindIndex(head);
+            if (size == 0)
+            {
+                return head;
+            }
+            else if (head.next == null)
+            {
+                return head;
+            }
+            else if (head.next.next == null)
+            {
+                if (size == 1)
+                {
+                    head.next.next = head;
+                    head = head.next;
+                    head.next.next = null;
+                    return head;
+                }
+
+                return head;
+
+            }
+
+            while (size != 0)
+            {
+                ListNode temp = FindBeforeLastIndex(head);
+                ListNode temp1 = temp.next;
+                temp.next = null;
+                temp1.next = head;
+                head = temp1;
+                size--;
+            }
+
+
+
+
+
+            return head;
+        }
+
+        public int FindIndex(ListNode node)
+        {
+            ListNode Temp = node;
+            int count = 1;
+
+            while (Temp.next != null)
+            {
+                Temp = Temp.next;
+                count++;
+            }
+
+            return count;
+
+        }
+        public ListNode FindBeforeLastIndex(ListNode node)
+        {
+            ListNode temp = node;
+
+            while (temp.next.next != null)
+            {
+                temp = temp.next;
+            }
+
+            return temp;
 
         }
     }
