@@ -54,57 +54,49 @@ namespace HashTable
         {
             Dictionary<string, int> dict = new Dictionary<string, int>();
             IList<TreeNode> list = new List<TreeNode>();
-            TreeNode temp = root;
+            TreeNode tempLeft = root.left;
+         IList<string> storeKey = new List<string>();
 
-            while (temp != null)
+            while (tempLeft != null)
             {
-                if (temp.left != null)
+                storeKey.Add(tempLeft.val);
+                if (tempLeft.left == null)
                 {
-                    TreeNode tempLeft = temp;
-                    while (tempLeft != null)
-                    {
-                        string key = "";
-                         TreeNode tempLeft = temp == root ? temp.left: temp;
-
-                        tempLeft.right =null;
-                        while (findbutoom != null)
-                        {
-
-                            key += findbutoom.val;
-                            findbutoom = findbutoom.left;
-
-                        }
-                        Console.WriteLine(key);
-                        if (dict.ContainsKey(key) && dict[key] < 1)
-                        {
-                            tempLeft.right = null;
-                            list.Add(tempLeft);
-
-                            dict[key]++;
-                        }
-                        else
-                        {
-                            dict[key] = 0;
-                        }
-                        tempLeft = tempLeft.left;
-                    }
+                    storeKey.Add("null");
                 }
-                else if (temp.right == null)
+                if (tempLeft.right == null)
                 {
-                    if (dict.ContainsKey(temp.val + "") && dict[temp.val + ""] < 1)
-                    {
-                        Console.WriteLine("Active");
-
-                        list.Add(temp);
-                        dict[temp.val + ""]++;
-                    }
+                    storeKey.Add ("null");
                 }
-                temp = temp.right;
+                // if (!dict.ContainsKey(storeKey))
+                // {
+                //     dict[storeKey] = 1;
+                // }
+                // else
+                // {
+                //     dict[storeKey] += 1;
+                // }
+
+
+                // if (dict[storeKey] == 2)
+                // {
+                //     list.Add(tempLeft);
+                // }
+                tempLeft = tempLeft.left;
+
+                // Console.WriteLine(storeKey);
 
             }
+           
+
+
+
 
             return list;
         }
 
+
     }
+
 }
+
