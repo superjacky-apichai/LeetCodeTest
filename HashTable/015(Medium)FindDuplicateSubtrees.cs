@@ -52,49 +52,34 @@ namespace HashTable
     {
         public IList<TreeNode> FindDuplicateSubtrees(TreeNode root)
         {
-            Dictionary<string, int> dict = new Dictionary<string, int>();
+
             IList<TreeNode> list = new List<TreeNode>();
-            TreeNode tempLeft = root.left;
-         IList<string> storeKey = new List<string>();
-
-            while (tempLeft != null)
-            {
-                storeKey.Add(tempLeft.val);
-                if (tempLeft.left == null)
-                {
-                    storeKey.Add("null");
-                }
-                if (tempLeft.right == null)
-                {
-                    storeKey.Add ("null");
-                }
-                // if (!dict.ContainsKey(storeKey))
-                // {
-                //     dict[storeKey] = 1;
-                // }
-                // else
-                // {
-                //     dict[storeKey] += 1;
-                // }
-
-
-                // if (dict[storeKey] == 2)
-                // {
-                //     list.Add(tempLeft);
-                // }
-                tempLeft = tempLeft.left;
-
-                // Console.WriteLine(storeKey);
-
-            }
-           
-
-
-
+            traverse(root, new Dictionary<string, int>(), new Dictionary<int, int>(), list);
 
             return list;
+
         }
 
+
+        public int traverse(TreeNode node, Dictionary<string, int> tripletToID, Dictionary<int, int> cnt, IList<TreeNode> res)
+        {
+            if(node==null){
+                return 0;
+            }
+
+            string triplet = traverse(node.left,tripletToID,cnt,res)+","+node.val+","+traverse(node.right,tripletToID,cnt,res);
+            Console.WriteLine(triplet);
+            if(!tripletToID.ContainsKey(triplet)){
+                tripletToID.Add(triplet,tripletToID.Count+1);
+            }
+            int id = tripletToID[triplet];
+            cnt[id] = cnt.GetValueOrDefault(id, 0) + 1;
+            if(cnt[id]==2){
+                res.Add(node);
+            }
+            return id;
+
+        }
 
     }
 
