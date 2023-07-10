@@ -39,6 +39,10 @@ namespace GeneralMath
             dict['('] = ')';
             dict['{'] = '}';
             dict['['] = ']';
+            Dictionary<char, char> dict2 = new Dictionary<char, char>();
+            dict2[')'] = '(';
+            dict2['}'] = '{';
+            dict2[']'] = '[';
             char[] chArr = s.ToCharArray();
             if (chArr.Length < 2)
             {
@@ -51,34 +55,48 @@ namespace GeneralMath
 
                 return dict.ContainsKey(chArr[0]) && dict[chArr[0]] == chArr[1];
             }
-            bool finding = false;
-            for (int i = 0; i < chArr.Length - 1; i++)
+            else if (chArr.Length % 2 != 0)
+            {
+
+                return false;
+            }
+
+            IList<char> set = new List<char>();
+
+            for (int i = 0; i < chArr.Length; i++)
             {
                 if (dict.ContainsKey(chArr[i]))
                 {
-                    for (int j = i + 1; j < chArr.Length; j++)
-                    {
-                        if (dict[chArr[i]] == chArr[j])
-                        {
-                            chArr[j] = '.';
-                            finding = true;
-                            break;
-                        }
-                    }
 
-                    if (!finding)
+                    set.Add(chArr[i]);
+                }
+                else if (dict2.ContainsKey(chArr[i]))
+                {
+                    
+                    if (set.Count == 0)
                     {
                         return false;
                     }
-
-                    finding = false;
-                    continue;
-                }else if(!dict.ContainsKey(chArr[i])&&chArr[i]!= '.'){
-                    return false;
+                    else if (!set.Contains(dict2[chArr[i]]))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        if (set.ElementAt(set.Count - 1) == dict2[chArr[i]])
+                        {
+                            set.RemoveAt(set.Count - 1);
+                            continue;
+                        }
+                       
+                        return false;
+                    }
                 }
-                
 
+            }
 
+            if(set.Count != 0){
+                return false;
             }
             return true;
         }
