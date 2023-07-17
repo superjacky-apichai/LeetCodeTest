@@ -56,38 +56,37 @@ namespace QueueStack
         public void Push(int val)
         {
             stack.Push(val);
-            if(stackMin.Count == 0){
-                stackMin.Push(val);
-            }else if (stackMin.Peek() > val)
+            if (stackMin.Count == 0)
             {
-                while(minValue > val){
-                    int temp = this.stackMin.Pop();
-                }
+                stackMin.Push(val);
+            }
+            else if (stackMin.Peek() >= val)
+            {
+                stackMin.Push(val);
             }
         }
 
         public void Pop()
         {
-            if (List.Count == 0)
+            if (stack.Count == 0)
             {
                 return;
             }
-
-            return List.RemoveAt(List.Count - 1);
+            if (stackMin.Peek() == stack.Peek())
+            {
+                stackMin.Pop();
+            }
+            stack.Pop();
         }
 
         public int Top()
         {
-            if (List.Count == 0)
-            {
-                return;
-            }
-            return List.ElementAt(List.Count - 1);
+            return stack.Peek();
         }
 
         public int GetMin()
         {
-
+            return stackMin.Peek();
         }
 
     }
