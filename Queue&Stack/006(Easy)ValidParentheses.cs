@@ -35,6 +35,85 @@ namespace QueueStack
     {
         public bool IsValid(string s)
         {
+            if (s.Length == 0)
+            {
+                return false;
+            }
+            else if (s.Length == 1)
+            {
+                return false;
+            }
+            char[] ch = s.ToCharArray();
+            Stack<char> stack1 = new Stack<char>();
+
+            for (int i = 0; i < ch.Length; i++)
+            {
+                switch (ch[i])
+                {
+                    case '(':
+                        stack1.Push(ch[i]);
+                        break;
+                    case '{':
+                        stack1.Push(ch[i]);
+                        break;
+                    case '[':
+                        stack1.Push(ch[i]);
+                        break;
+                    case ')':
+                        if (stack1.Count == 0)
+                        {
+                            return false;
+                        }
+                        else if (stack1.Peek() != '(')
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            stack1.Pop();
+                        }
+                        break;
+                    case ']':
+                        if (stack1.Count == 0)
+                        {
+                            return false;
+                        }
+                        else if (stack1.Peek() != '[')
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            stack1.Pop();
+                        }
+                        break;
+                    case '}':
+                        if (stack1.Count == 0)
+                        {
+                            return false;
+                        }
+                        else if (stack1.Peek() != '{')
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            stack1.Pop();
+                        }
+                        break;
+                    default:
+                        return false;
+                        break;
+
+                }
+            }
+
+            if (stack1.Count > 0)
+            {
+                return false;
+            }
+
+            return true;
 
         }
     }
