@@ -42,7 +42,15 @@ Explanation: ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
 Constraints:
 
 1 <= tokens.length <= 104
-tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200]. */
+tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200]. 
+
+Test case
+["200","200","200","200","*","*","*"]   
+["4","-2","/","2","-3","-","-"]
+
+
+
+*/
 
 namespace QueueStack
 {
@@ -50,7 +58,42 @@ namespace QueueStack
     {
         public int EvalRPN(string[] tokens)
         {
+            Stack<int> stack = new Stack<int>();
+            int num1;
+            int num2;
 
+
+
+            for (int i = 0; i < tokens.Length; i++)
+            {
+                switch (tokens[i])
+                {
+                    case "+":
+                        num1 = stack.Pop();
+                        num2 = stack.Pop();
+                        stack.Push(num2 + num1);
+                        break;
+                    case "-":
+                        num1 = stack.Pop();
+                        num2 = stack.Pop();
+                        stack.Push(num2 - num1);
+                        break;
+                    case "*":
+                        num1 = stack.Pop();
+                        num2 = stack.Pop();
+                        stack.Push(num2 * num1);
+                        break;
+                    case "/":
+                        num1 = stack.Pop();
+                        num2 = stack.Pop();
+                        stack.Push(num2 / num1);
+                        break;
+                    default:
+                        stack.Push(int.Parse(tokens[i]));
+                        break;
+                }
+            }
+            return stack.Peek();
         }
     }
 }
