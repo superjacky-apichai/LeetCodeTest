@@ -86,6 +86,18 @@ namespace QueueStack
 
     public class CloneGraph
     {
-
+        public Node CloneGraph(Node node)
+        {
+            if(node == null){
+              return null;
+            }else if ( node.neighbors.Count == 0){
+                return new Node(node.val);
+            }
+            Node newnode = new Node(node.val);
+            for(int i=0;i<node.neighbors.ElementAt(0).neighbors.Count;i++){
+                Console.Write(node.neighbors.ElementAt(0).neighbors.ElementAt(i).val);
+            }
+            return newnode;
+        }
     }
 }
