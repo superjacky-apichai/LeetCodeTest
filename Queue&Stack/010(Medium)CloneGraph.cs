@@ -53,7 +53,19 @@ The number of nodes in the graph is in the range [0, 100].
 1 <= Node.val <= 100
 Node.val is unique for each node.
 There are no repeated edges and no self-loops in the graph.
-The Graph is connected and all nodes can be visited starting from the given node.*/
+The Graph is connected and all nodes can be visited starting from the given node.
+
+Test case 
+
+[[2,4],[1,3],[2,4],[1,3]]
+[[]]
+[]
+[[2,10],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10],[1,9]]
+[[2],[1]]]
+[[2,3,4],[1,3,4],[1,2,4],[1,2,3]]
+*/
+
+
 namespace QueueStack
 {
 
@@ -88,16 +100,32 @@ namespace QueueStack
     {
         public Node CloneGraph(Node node)
         {
-            if(node == null){
-              return null;
-            }else if ( node.neighbors.Count == 0){
+            if (node == null)
+            {
+                return null;
+            }
+            else if (node.neighbors.Count == 0)
+            {
                 return new Node(node.val);
             }
-            Node newnode = new Node(node.val);
-            for(int i=0;i<node.neighbors.ElementAt(0).neighbors.Count;i++){
-                Console.Write(node.neighbors.ElementAt(0).neighbors.ElementAt(i).val);
+            
+            Stack<Node> stack = new Stack<Node>();
+            stack.Push(node.neighbors.ElementAt(1));
+            Node temp = stack.Peek().neighbors.ElementAt(1);
+
+            while (true)
+            {
+                stack.Push(temp);
+                if (temp == node)
+                {
+                    break;
+                }
+                temp = stack.Peek().neighbors.ElementAt(0);
             }
-            return newnode;
+
+       
+            return null;
         }
+
     }
 }
