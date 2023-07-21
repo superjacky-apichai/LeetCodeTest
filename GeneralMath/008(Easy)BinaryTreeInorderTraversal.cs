@@ -54,36 +54,39 @@ namespace GeneralMath
 
         public IList<int> InorderTraversal(TreeNode root)
         {
+            if (root == null)
+            {
+                return new List<int>();
+            }
             Stack<TreeNode> stack = new Stack<TreeNode>();
             IList<int> list = new List<int>();
             HashSet<TreeNode> set = new HashSet<TreeNode>();
-           
+
             stack.Push(root);
 
             while (stack.Count > 0)
             {
-                if(stack.Peek().left != null&&!set.Contains(stack.Peek().left)){
-                  stack.Push(stack.Peek().left);
-                  continue;
-                }else if(stack.Peek().left == null){
+                if (stack.Peek().left != null && !set.Contains(stack.Peek().left))
+                {
+                    stack.Push(stack.Peek().left);
+                    continue;
+                }
+                else if (stack.Peek().left == null || (stack.Peek().left != null && set.Contains(stack.Peek().left)))
+                {
                     list.Add(stack.Peek().val);
-                    if(stack.Peek().right != null){
-                        stack.Push(stack.Peek().right); 
+                    TreeNode tempNode = stack.Pop();
+                    set.Add(tempNode);
+                    if (tempNode.right != null && !set.Contains(tempNode.right))
+                    {
+                        stack.Push(tempNode.right);
                     }
-                        set.Add(stack.Pop());
-                    
-                     continue;
-                }else if(stack.Peek().right != null&&!set.Contains(stack.Peek().right)){
-                    stack.Push(stack.Peek().right);
+                    continue;
                 }
 
-
-            
-             
             }
 
 
-            return new List<int>();
+            return list;
         }
     }
 }
