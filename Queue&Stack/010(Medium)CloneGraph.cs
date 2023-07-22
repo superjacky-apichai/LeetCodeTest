@@ -61,7 +61,7 @@ Test case
 [[]]
 []
 [[2,10],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10],[1,9]]
-[[2],[1]]]
+[[2],[1]]
 [[2,3,4],[1,3,4],[1,2,4],[1,2,3]]
 */
 
@@ -99,7 +99,7 @@ namespace QueueStack
     public class CloneGraph
     {
         public Node CloneGraph(Node node)
-        {
+       {
             if (node == null)
             {
                 return null;
@@ -108,23 +108,39 @@ namespace QueueStack
             {
                 return new Node(node.val);
             }
-            
             Stack<Node> stack = new Stack<Node>();
-            stack.Push(node.neighbors.ElementAt(1));
-            Node temp = stack.Peek().neighbors.ElementAt(1);
+            Dictionary<Node, Node> dict = new Dictionary<Node, Node>();
+            dict.Add(node, new Node(node.val));
+            Node newNode = dict[node];
+            Stack<Node> stackNew = new Stack<Node>();
+            stackNew.Push(newNode);
+            stack.Push(node);
 
-            while (true)
+            while (stack.Count > 0)
             {
-                stack.Push(temp);
-                if (temp == node)
+                Node temp = stack.Pop();
+                Node newTemp = stackNew.Pop();
+                for (int i = 0; i < temp.neighbors.Count; i++)
                 {
-                    break;
+
+                    if (!dict.ContainsKey(temp.neighbors.ElementAt(i)))
+                    {
+                        stack.Push(temp.neighbors.ElementAt(i)); 
+                        dict.Add(temp.neighbors.ElementAt(i),new Node(temp.neighbors.ElementAt(i).val));
+                        stackNew.Push(dict[temp.neighbors.ElementAt(i)]);
+                    }
+                   newTemp.neighbors.Add(dict[temp.neighbors.ElementAt(i)]);
+                   
+
                 }
-                temp = stack.Peek().neighbors.ElementAt(0);
+              
+
             }
 
-       
-            return null;
+
+
+
+            return newNode;
         }
 
     }
