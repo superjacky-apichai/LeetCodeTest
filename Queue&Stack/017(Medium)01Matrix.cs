@@ -65,6 +65,7 @@ Test case
 ,[1,1,1,1,1,1,1,1,1,1]
 ,[1,1,1,1,0,1,1,1,1,1]
 ,[1,1,1,1,1,1,1,1,1,0]]
+23 24
 */
 namespace QueueStack
 {
@@ -72,8 +73,12 @@ namespace QueueStack
     {
         public int[][] UpdateMatrix(int[][] mat)
         {
+            if (mat.Length == 0)
+            {
+                return new int[0][];
+            }
             Stack<int[]> stack = new Stack<int[]>();
-            HashSet<string> set = new HashSet<string>();
+
 
 
             for (int i = 0; i < mat.Length; i++)
@@ -83,30 +88,17 @@ namespace QueueStack
                     if (mat[i][j] == 0)
                     {
                         stack.Push(new int[] { i, j });
-                        set.Add(i+""+j);
+
                     }
-                }
-            }
-            int count =0;
-            while (stack.Count > 0)
-            {
-                int sum = Math.Abs(stack.Peek()[0] - stack.Peek()[1]);
-                stack.Pop();
-                for (int i = 0; i < mat.Length; i++)
-                {
-                    for (int j = 0; j < mat[i].Length; j++)
+                    else
                     {
-                        if (!set.Contains(i+""+j))
-                        {
-                            mat[i][j] = Math.Abs((i - j) + sum);
-                        }
+                        mat[i][j] = int.MaxValue;
+
+
                     }
                 }
-                count ++;
             }
-
-
-
+            
             return mat;
         }
 
