@@ -77,7 +77,7 @@ namespace QueueStack
             {
                 return new int[0][];
             }
-            Stack<int[]> stack = new Stack<int[]>();
+            Queue<int[]> queue = new Queue<int[]>();
 
 
 
