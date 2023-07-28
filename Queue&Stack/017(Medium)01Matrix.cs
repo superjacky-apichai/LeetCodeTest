@@ -88,7 +88,7 @@ namespace QueueStack
                     if (mat[i][j] == 0)
                     {
                         queue.Enqueue(new int[] { i, j });
-                        break;
+                        
                     }
                     else
                     {

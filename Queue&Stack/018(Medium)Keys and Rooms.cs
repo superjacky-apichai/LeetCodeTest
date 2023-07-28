@@ -46,6 +46,31 @@ namespace QueueStack
         public bool CanVisitAllRooms(IList<IList<int>> rooms)
         {
 
+            bool[] seen = new bool[rooms.Count()];
+            seen[0] = true;
+            Stack<int> stack = new Stack<int>();
+            stack.Push(0);
+
+            while (stack.Count > 0)
+            {
+                int node = stack.Pop();
+                foreach (int nei in rooms[node])
+                {
+                    if (!seen[nei])
+                    {
+                        seen[nei] = true;
+                        stack.Push(nei);
+                    }
+                }
+            }
+
+            foreach (bool v in seen)
+            {
+                if (!v) return false;
+            }
+            return true;
+
         }
+
     }
 }
