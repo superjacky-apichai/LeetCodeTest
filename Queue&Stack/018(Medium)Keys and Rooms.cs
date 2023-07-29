@@ -69,8 +69,6 @@ namespace QueueStack
                 if (!v) return false;
             }
             return true;
-
         }
-
     }
 }
