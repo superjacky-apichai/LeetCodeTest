@@ -116,7 +116,47 @@ namespace GeneralMath
          }
 
          return res;
-     }*/
+     }
+     
+     
+      public string[] FindRelativeRanks(int[] score) {
+        string[] result = new string[score.Count()];
+        int current = 0;
+        int[] arr = new int[score.Count()];
+        for(int i = 0; i< score.Count() ;i++)
+            {
+                arr[i]=score[i];
+            }
+        Array.Sort(arr);
+        Array.Reverse(arr);
+        for(int i = 0; i< arr.Count();i++)
+            {
+
+                for(int j = 0; j<score.Count();j++)
+                    {
+                        if(arr[i]==score[j])
+                            {
+                                if(i==0)
+                                {
+                                    result[j]="Gold Medal";
+                                }
+                                else if(i==1)
+                                {
+                                    result[j]="Silver Medal";
+                                }
+                                else if(i==2)
+                                {
+                                    result[j]="Bronze Medal";
+                                }
+                                else{
+                                    result[j] = (i+1).ToString();
+                                }
+                            }
+                    }
+            }
+        return result;
+    }
+    */
 
 
 
